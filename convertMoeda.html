@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Solway:wght@300&display=swap" rel="stylesheet">
+    <title>Coin Convert</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'Solway', serif;
+        }
+
+        header {
+            background-color: lightyellow;
+            margin-bottom: 100px;
+            font-size: 250%;
+        }
+
+        main {
+            border: 2px solid black;
+            width: 600px;
+            margin-right: auto;
+            margin-left: auto;
+            border-radius: 5px;
+            font-size: 150%;
+            background-color: lightgoldenrodyellow;
+        }
+
+        #results {
+            display: flex;
+            flex-direction: column;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        input {
+            width: 250px;
+            height: 25px;
+            border: 2px solid green;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        input:focus{
+            background-color: lightblue;
+        }
+
+        .aligninp {
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        button {
+            width: 250px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 25px;
+            border-radius: 5px;
+            border: 2px solid darkgreen;
+            background-color: blue;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body align="center">
+    <header>Conversor de Real</header>
+    <main>
+        <div>
+            <label for="real">Insira a Quantidade em Reais: </label><br>
+            <input type="text" id="real" type="text" onkeypress='validate(event)'><br><br>
+        </div>
+        <div id="results" align="center">
+            <label for="moedas5c">Moedas de 5 centavos Necessárias: </label>
+            <input class="aligninp" id="moedas5c" disabled><br>
+            <label for="moedas10c">Moedas de 10 centavos Necessárias: </label>
+            <input class="aligninp" type="text" id="moedas10c" disabled><br>
+            <label for="moedas25c">Moedas de 25 centavos Necessárias: </label>
+            <input class="aligninp" type="text" id="moedas25c" disabled><br>
+            <label for="moedas50c">Moedas de 50 centavos Necessárias: </label>
+            <input class="aligninp" type="text" id="moedas50c" disabled><br>
+            <label for="moedas1r">Moedas de 1 real Necessárias: </label>
+            <input class="aligninp" type="text" id="moedas1r" disabled><br>
+            <button id="convert">Converter</button>
+        </div><br>
+    </main>
+
+    <script>
+        function validate(evt) {
+            var theEvent = evt || window.event;
+            var key = theEvent.keyCode || theEvent.which;
+            key = String.fromCharCode(key);
+            var regex = /[0-9]|\./;
+            if (!regex.test(key)) {
+                theEvent.returnValue = false;
+                if (theEvent.preventDefault) theEvent.preventDefault();
+            }
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#convert").click(function () {
+                $("#moedas5c").val(`${$("#real").val()*20}`)
+                $("#moedas10c").val(`${$("#real").val()*10}`)
+                $("#moedas25c").val(`${$("#real").val()*4}`)
+                $("#moedas50c").val(`${$("#real").val()*2}`)
+                $("#moedas1r").val(`${$("#real").val()*1}`)
+            })
+        })
+    </script>
+    <script>
+        document.getElementById("real").addEventListener("keyup", function (event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                document.getElementById("convert").click();
+            }
+        });
+    </script>
+</body>
+
+</html>
